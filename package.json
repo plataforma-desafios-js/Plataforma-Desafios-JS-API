@@ -1,0 +1,21 @@
+{
+  "name": "Plataforma-Desafios-JS-API",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "repository": "https://github.com/b3coded/Plataforma-Desafios-JS-API.git",
+  "author": "b3coded",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.0",
+    "socket.io": "^2.2.0"
+  }
+}
