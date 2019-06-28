@@ -1,7 +1,7 @@
 
-var mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-var SubmissaoScheema = new mongoose.Schema({
+var SubmissaoScheema = new Schema({
     usuario: String,
     link: String,
     votes_count: {
@@ -21,4 +21,4 @@ var SubmissaoScheema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Submissao', SubmissaoScheema);
+export default model('Submissao', SubmissaoScheema);

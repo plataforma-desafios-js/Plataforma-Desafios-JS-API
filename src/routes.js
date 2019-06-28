@@ -1,27 +1,31 @@
   
-const express = require('express');
+import express from 'express';
+
+
+// Importando Controllers
+import DesafioController from './Controllers/DesafioController';
+import UsuarioController from './Controllers/UsuarioController';
+import SubmissaoController from './Controllers/SubmissaoController';
+import VoteController from './Controllers/VoteController';
 
 const routes = express.Router();
-// Importando Controllers
-const DesafioController = require('./Controllers/DesafioController');
-const UsuarioController = require('./Controllers/UsuarioController');
-const SubmissaoController = require('./Controllers/SubmissaoController');
-const VoteController = require('./Controllers/VoteController');
-
 
 routes.get('/', (req, res) => {
-    return res.send("Hello World");
+    return res.json({message: "Hello World"});
 });
 
 routes.get('/desafios', DesafioController.index);
-routes.post('/desafios', DesafioController.create);
+routes.post('/desafios', DesafioController.store);
 
 
 routes.get('/usuarios', UsuarioController.index);
-routes.post('/usuarios', UsuarioController.create);
+routes.post('/usuarios', UsuarioController.store);
+routes.put('/usuarios/:id', UsuarioController.update);
+routes.get('/usuarios/:id', UsuarioController.show);
+routes.delete('/usuarios/:id', UsuarioController.delete);
 
-routes.get('/usuarios', SubmissaoController.index);
-routes.post('/usuarios', SubmissaoController.create);
+routes.get('/submissoes', SubmissaoController.index);
+routes.post('/submissoes', SubmissaoController.store);
 
 
 

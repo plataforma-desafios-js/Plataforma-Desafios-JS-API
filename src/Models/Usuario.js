@@ -1,17 +1,27 @@
 
-var mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-var UsuarioScheema = new mongoose.Schema({
+var UsuarioScheema = new Schema({
     admin: {
         type: Boolean,
+        required: true,
         default: false
     },
-    displayName: String,
-    email: String,
-    senha: String,
-    photo: String,
+    displayName: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        unique: true
+    },
+    senha: {
+        type: String,
+        required: true,
+    },
     vitorias: {
         type: Number,
+        required: true,
         default: 0
     },
     medalhas: [
@@ -27,4 +37,4 @@ var UsuarioScheema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Usuario', UsuarioScheema);
+export default model('Usuario', UsuarioScheema);

@@ -1,9 +1,8 @@
-var date = new Date();
-date.setDate(date.getDate() + 7);
 
-var mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-var DesafioScheema = new mongoose.Schema({
+
+var DesafioScheema = new Schema({
     author: String,
     titulo: String,
     content: String,
@@ -13,11 +12,11 @@ var DesafioScheema = new mongoose.Schema({
     },
     dataFim: {
         type: Date,
-        default: date
+        default: Date.now
     },
     participantes: [
         {type:String}
     ],
 });
 
-module.exports = mongoose.model('Desafio', DesafioScheema);
+export default model('Desafio', DesafioScheema);
