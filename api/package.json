@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon",
+    "lint": "eslint --ext .js,.html -f ./node_modules/eslint-friendly-formatter . --fix",
     "start": "node server.js",
     "queue": "nodemon src/queue.js"
   },
@@ -25,9 +26,9 @@
   "homepage": "https://github.com/b3coded/Plataforma-Desafios-JS-API/blob/master/README.md",
   "devDependencies": {
     "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-plugin-import": "^2.18.0",
-    "husky": "^3.0.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "husky": "^2.3.0",
     "nodemon": "^1.19.1"
   },
   "dependencies": {
