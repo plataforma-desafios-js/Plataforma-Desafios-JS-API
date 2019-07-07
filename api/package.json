@@ -1,0 +1,50 @@
+{
+  "name": "plataforma-desafios-js-api",
+  "version": "1.0.0",
+  "description": "Aplicação RESTFul API com padrão Onion Architecture - seguindo conceitos SOLID.",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon",
+    "lint": "eslint --ext .js,.html -f ./node_modules/eslint-friendly-formatter . --fix",
+    "prepush": "npm run lint",
+    "start": "node server.js",
+    "queue": "nodemon src/queue.js"
+  },
+  "keywords": [
+    "nodejs",
+    "javascript",
+    "mongoose",
+    "mongodb",
+    "express",
+    "onion-architecture"
+  ],
+  "repository": "https://github.com/b3coded/Plataforma-Desafios-JS-API.git",
+  "author": "b3coded, Glaucia Lemos <glaucia86>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/b3coded/Plataforma-Desafios-JS-API/issues"
+  },
+  "homepage": "https://github.com/b3coded/Plataforma-Desafios-JS-API/blob/master/README.md",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.0",
+    "husky": "^3.0.0",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-plugin-html": "^6.0.0",
+    "express": "^4.17.1",
+    "express-promise-router": "^3.0.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.0",
+    "morgan": "^1.9.1",
+    "socket.io": "^2.2.0",
+    "yup": "^0.27.0"
+  }
+}
