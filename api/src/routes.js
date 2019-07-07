@@ -1,4 +1,4 @@
-  
+
 import express from 'express';
 
 
@@ -10,9 +10,7 @@ import VoteController from './Controllers/VoteController';
 
 const routes = express.Router();
 
-routes.get('/', (req, res) => {
-    return res.json({message: "Hello World"});
-});
+routes.get('/', (req, res) => res.json({ message: 'Hello World' }));
 
 routes.get('/desafios', DesafioController.index);
 routes.post('/desafios', DesafioController.store);
@@ -26,9 +24,6 @@ routes.delete('/usuarios/:id', UsuarioController.delete);
 
 routes.get('/submissoes', SubmissaoController.index);
 routes.post('/submissoes', SubmissaoController.store);
-
-
-
 
 
 module.exports = routes;
