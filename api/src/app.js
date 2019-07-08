@@ -28,14 +28,18 @@ mongoose.connect(localDatabase.local.localUrl, { useNewUrlParser: true }).then((
 });
 
 // ==> Rotas
-const index = require('');
-const teste = require('');
+const index = require('./routes/index');
+const usuarioRoute = require('./routes/usuario.routes');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(morgan('dev'));
 app.use(cors());
+
+// ==> Usando as Rotas da API:
+app.use('/', index);
+app.use('/api/', usuarioRoute);
 
 // Socket
 /* TODO: Tratar a relação dos status Code & Socket.io
@@ -44,26 +48,6 @@ const io = require('socket.io')(server);
 app.use((req, res, next) => {
   req.io = io;
   return next();
-});
-
-// Main Routes
-// app.use(require('./routes'));
-
-// Error 404
-app.use((req, res, next) => {
-  res.status(404).send({
-    status: 404,
-    error: 'Not found',
-  });
-});
-
-// Error 500
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send({
-    status: 500,
-    error: 'Something broke!',
-  });
 }); */
 
 module.exports = app;

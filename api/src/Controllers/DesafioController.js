@@ -1,4 +1,4 @@
-import * as Yup from 'yup';
+import * as Yup from './node_modules/yup';
 import Desafio from '../Models/Desafio';
 
 class DesafioController {

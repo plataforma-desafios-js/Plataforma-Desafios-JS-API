@@ -11,5 +11,6 @@ const app = require('./src/app');
 
 const port = process.env.PORT || 9000;
 
-app.listen(port);
-console.log('Aplicação executando na porta ', port);
+app.listen(port, () => {
+  console.log('Aplicação executando na porta ', port);
+});
