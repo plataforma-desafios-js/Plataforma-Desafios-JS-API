@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "lint": "eslint --ext .js,.html -f ./node_modules/eslint-friendly-formatter . --fix",
+    "prepush": "npm run lint",
     "start": "node server.js",
     "queue": "nodemon src/queue.js"
   },
