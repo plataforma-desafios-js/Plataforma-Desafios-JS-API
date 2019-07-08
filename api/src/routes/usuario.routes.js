@@ -1,7 +1,7 @@
 // @ts-nocheck
 /**
  * Arquivo: routes/usuario.routes.js
- * Descrição: arquivo responsável pelas rotas da api relacionado ao Funcionário.
+ * Descrição: arquivo responsável pelas rotas da api relacionado ao Usuario.
  * Data: 07/07/2019
  * Author: Glaucia Lemos
  */
@@ -19,13 +19,13 @@ router.post('/usuarios', usuarioController.create);
 // ==> Rota responsável por selecionar todos os 'Usuario': (GET): localhost:9000/api/usuarios/
 router.get('/usuarios', usuarioController.findAll);
 
-// ==> Rota responsável por selecionar 'Funcionario' pelo 'Id': (GET): localhost:9000/api/usuarios/:id
+// ==> Rota responsável por selecionar 'Usuario' pelo 'Id': (GET): localhost:9000/api/usuarios/:id
 router.get('/usuarios/:id', usuarioController.findById);
 
 // ==> Rota responsável por atualizar 'Usuario' pelo 'Id': (PUT): localhost: 9000/api/usuarios/:id
 router.put('/usuarios/:id', usuarioController.update);
 
-// ==> Rota responsável por excluir 'Usuario' pelo 'Id': (DELETE): localhost:9000/api/funcionario/:id
+// ==> Rota responsável por excluir 'Usuario' pelo 'Id': (DELETE): localhost:9000/api/usuarios/:id
 router.delete('/usuarios/:id', usuarioController.delete);
 
 module.exports = router;

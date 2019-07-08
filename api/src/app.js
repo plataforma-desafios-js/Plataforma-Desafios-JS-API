@@ -30,6 +30,7 @@ mongoose.connect(localDatabase.local.localUrl, { useNewUrlParser: true }).then((
 // ==> Rotas
 const index = require('./routes/index');
 const usuarioRoute = require('./routes/usuario.routes');
+const desafioRoute = require('./routes/desafio.routes');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -40,6 +41,7 @@ app.use(cors());
 // ==> Usando as Rotas da API:
 app.use('/', index);
 app.use('/api/', usuarioRoute);
+app.use('/api/', desafioRoute);
 
 // Socket
 /* TODO: Tratar a relação dos status Code & Socket.io
