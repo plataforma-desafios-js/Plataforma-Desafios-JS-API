@@ -1,9 +1,32 @@
+/**
+ * Arquivo: models/submissao.model.js
+ * Descrição: arquivo responsável pelo modelo da classe 'Submissao'
+ * Data: 07/07/2019
+ * Author: Glaucia Lemos
+ */
 
-import { Schema, model } from 'mongoose';
+const mongoose = require('mongoose');
 
-const SubmissaoScheema = new Schema({
-  usuario: String,
-  link: String,
+const Schema = mongoose.Schema;
+
+/**
+ * === Classe: Submissao ===
+ *  id: (number - guid gerado pelo MongoDb)
+ *  usuario: String
+ *  link: String
+ *  votes_count: String
+ *  votes: Date
+ */
+
+const submissaoSchema = new Schema({
+  usuario: {
+    type: String,
+    required: true,
+  },
+  link: {
+    type: String,
+    required: true,
+  },
   votes_count: {
     type: Number,
     default: 0,
@@ -11,14 +34,9 @@ const SubmissaoScheema = new Schema({
   votes: [
     { type: String },
   ],
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-  },
+}, {
+  timestamps: true,
+  collection: 'submissao',
 });
 
-export default model('Submissao', SubmissaoScheema);
+module.exports = mongoose.model('Submissao', submissaoSchema);
