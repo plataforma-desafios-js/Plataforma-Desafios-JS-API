@@ -8,10 +8,11 @@
 
 // const router = require('express-promise-router')();
 const router = require('express-promise-router')();
-const usuarioController = require('../controllers/usuario.controller');
-const desafioController = require('../controllers/desafio.controller');
-const submissaoController = require('../controllers/submissao.controller');
-const voteController = require('../controllers/vote.controller');
+const usuarioController = require('../Controllers/usuario.controller');
+const desafioController = require('../Controllers/desafio.controller');
+const submissaoController = require('../Controllers/submissao.controller');
+const voteController = require('../Controllers/vote.controller');
+const sessionController = require('../Controllers/session.controller');
 
 // ==> Rota Default da api: localhost:9000/api
 router.get('/api', (req, res) => {
@@ -21,6 +22,9 @@ router.get('/api', (req, res) => {
     version: '1.0.0',
   });
 });
+
+// === Rotas API: Sessão ===
+router.post('/api/session', sessionController.create);
 
 // === Rotas API: Usuario ===
 

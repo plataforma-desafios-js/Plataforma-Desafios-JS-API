@@ -4,10 +4,13 @@
  * Data: 23/06/2019
  * Author: Glaucia Lemos
  */
+require('dotenv/config');
 
 module.exports = {
-  local:
-    {
-      localUrl: 'mongodb://localhost:27017/api-crud',
-    },
+  local: {
+    url: process.env.LOCAL_CONNECTION_STRING,
+  },
+  production: {
+    url: process.env.PRODUCTION_CONNECTION_STRING,
+  },
 };

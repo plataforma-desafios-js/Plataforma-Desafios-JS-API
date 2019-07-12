@@ -5,15 +5,50 @@
  * Author: Glaucia Lemos
  */
 
-const Usuario = require('../models/usuario.model');
+const Yup = require('yup');
+const Bcrypt = require('bcrypt');
+const Usuario = require('../Models/usuario.model');
 
 // Async & Await:
 
 // ==> Método responsável por criar um novo Usuario:
 exports.create = async (req, res) => {
+  // Validando o body da requisição
+  const schema = Yup.object().shape({
+    displayName: Yup.string().required(),
+    email: Yup.string().required(),
+    senha: Yup.string()
+      .required()
+      .min(8)
+      .max(32),
+  });
+
+  // Se o modelo do body for diferente ao do schema a função retorna erro
+  if (!(await schema.isValid(req.body))) return res.status(400).json({ error: 'Campos insuficientes' });
+
+  // Encriptando senha
+  req.body.senha = Bcrypt.hashSync(req.body.senha, 10);
+
   const novoUsuario = new Usuario(req.body);
-  const usuario = await novoUsuario.save();
-  res.status(200).send({ message: 'Usuário(a) criado(a) com sucesso!', usuario });
+
+  await novoUsuario.save((err, success) => {
+    // Verificando se houve erros ao adicionar os dados
+    if (err) {
+      // Verificando se o email já está cadastrado
+      if (err.name === 'MongoError' && err.code === 11000) {
+        // Se estiver cadastrado
+        return res
+          .status(422)
+          .send({ succes: false, message: 'Usuário já cadastrado!' });
+      }
+      return res.status(422).send({ succes: false, message: err });
+    }
+
+    // Se não houver problemas
+    return res
+      .status(200)
+      .send({ message: 'Usuário(a) criado(a) com sucesso!', usuario: success });
+  });
 };
 
 // ==> Método responsável por selecionar todos os 'Usuários':
@@ -24,23 +59,89 @@ exports.findAll = async (req, res) => {
 
 // ==> Método responsável por selecionar 'Usuário' pelo 'Id':
 exports.findById = async (req, res) => {
-  const usuario = await Usuario.findById(req.params.id);
-  res.status(200).send(usuario);
+  const { id } = req.params;
+  // Validando o id
+  if (!id.match(/^[a-fA-F0-9]{24}$/)) {
+    return res.status(400).send({ success: false, error: 'ID mal formatado' });
+  }
+
+  await Usuario.findById(id, (err, success) => {
+    if (err) {
+      return res.status(400).send({ success: false, message: err });
+    }
+    if (!success) {
+      return res
+        .status(404)
+        .send({ success: false, message: 'Usuário não cadastrado' });
+    }
+
+    return res.status(200).send({ success: true, usuario: success });
+  });
 };
 
 // ==> Método responsável por atualizar 'Usuário' pelo 'Id':
 exports.update = async (req, res) => {
-  // Validação de campos vazios:
-  if (!req.body.admin || !req.body.displayName || !req.body.senha || !req.body.vitorias) {
-    return res.status(400).send({ message: 'Os campos não podem ser vazios' });
+  const { id } = req.params;
+  // Validando o id
+  if (!id.match(/^[a-fA-F0-9]{24}$/)) {
+    return res.status(400).send({ success: false, error: 'ID mal formatado' });
   }
+  // Validando o body da requisição
+  const schema = Yup.object().shape({
+    displayName: Yup.string().required(),
+    email: Yup.string().required(),
+    senha: Yup.string()
+      .required()
+      .min(8)
+      .max(32),
+  });
 
-  const usuario = await Usuario.findByIdAndUpdate(req.params.id, req.body);
-  res.status(200).send({ message: 'Usuário(a) atualizado(a) com sucesso!', usuario });
+  // Se o modelo do body for diferente ao do schema a função retorna erro
+  if (!(await schema.isValid(req.body))) return res.status(400).json({ error: 'Campos insuficientes' });
+
+  // Encriptando senha
+  req.body.senha = Bcrypt.hashSync(req.body.senha, 10);
+
+  await Usuario.findByIdAndUpdate(id, req.body, (err, success) => {
+    if (err) {
+      return res.status(400).send({ success: false, message: err });
+    }
+    if (!success) {
+      return res
+        .status(404)
+        .send({ success: false, message: 'Usuário não cadastrado' });
+    }
+
+    return res.status(200).send({
+      success: true,
+      message: 'Usuário(a) atualizado(a) com sucesso!',
+      usuario: success,
+    });
+  });
 };
 
 // Método responsável por deletar 'Usuário pelo 'Id':
 exports.delete = async (req, res) => {
-  const usuario = await Usuario.findByIdAndRemove(req.params.id);
-  res.status(200).send({ message: 'Usuário(a) excluído com sucesso!', usuario });
+  const { id } = req.params;
+  // Validando o id
+  if (!id.match(/^[a-fA-F0-9]{24}$/)) {
+    return res.status(400).send({ success: false, error: 'ID mal formatado' });
+  }
+
+  await Usuario.findByIdAndRemove(id, (err, success) => {
+    if (err) {
+      return res.status(400).send({ success: false, message: err });
+    }
+    if (!success) {
+      return res
+        .status(404)
+        .send({ success: false, message: 'Usuário não cadastrado' });
+    }
+
+    return res.status(200).send({
+      success: true,
+      message: 'Usuário(a) excluído com sucesso!',
+      usuario: success,
+    });
+  });
 };

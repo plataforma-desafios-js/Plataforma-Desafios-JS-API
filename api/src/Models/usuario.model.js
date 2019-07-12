@@ -17,38 +17,41 @@ const Schema = mongoose.Schema;
  *  email: String
  *  senha: String
  *  vitorias: Number
- *  medalhas: String
+ *  medalhas: Array<String>
  */
 
-const usuarioSchema = new Schema({
-  admin: {
-    type: Boolean,
-    required: true,
-    default: false,
+const usuarioSchema = new Schema(
+  {
+    admin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    displayName: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      unique: true,
+    },
+    senha: {
+      type: String,
+      required: true,
+      min: 8,
+      max: 32,
+    },
+    vitorias: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    medalhas: [{ type: String }],
   },
-  displayName: {
-    type: String,
-    required: true,
+  {
+    timestamps: true, // com timestamp não precisa criar createdAt & updatedAt ;)
+    collection: 'usuario',
   },
-  email: {
-    type: String,
-    unique: true,
-  },
-  senha: {
-    type: String,
-    required: true,
-    min: 8,
-    max: 32,
-  },
-  vitorias: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
-  medalhas: [{ type: String }],
-}, {
-  timestamps: true, // com timestamp não precisa criar createdAt & updatedAt ;)
-  collection: 'usuario',
-});
+);
 
 module.exports = mongoose.model('Usuario', usuarioSchema);

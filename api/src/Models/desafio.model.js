@@ -17,7 +17,7 @@ const Schema = mongoose.Schema;
  *  content: String
  *  dataInicio: Date
  *  dataFim: Date
- *  participantes: String
+ *  participantes: Array<String>
  */
 
 const desafioSchema = new Schema({

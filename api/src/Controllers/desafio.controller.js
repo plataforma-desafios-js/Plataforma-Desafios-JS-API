@@ -5,7 +5,7 @@
  * Author: Glaucia Lemos
  */
 
-const Desafio = require('../models/desafio.model');
+const Desafio = require('../Models/desafio.model');
 
 // Async & Await:
 
@@ -13,7 +13,9 @@ const Desafio = require('../models/desafio.model');
 exports.create = async (req, res) => {
   const novoDesafio = new Desafio(req.body);
   const desafio = await novoDesafio.save();
-  res.status(200).send({ message: 'Desafio(a) criado(a) com sucesso!', desafio });
+  res
+    .status(200)
+    .send({ message: 'Desafio(a) criado(a) com sucesso!', desafio });
 };
 
 // ==> Método responsável por selecionar todos os 'Desafios':
@@ -31,16 +33,26 @@ exports.findById = async (req, res) => {
 // ==> Método responsável por atualizar 'Desafio' pelo 'Id':
 exports.update = async (req, res) => {
   // Validação de campos vazios:
-  if (!req.body.author || !req.body.titulo || !req.body.content || !req.body.dataInicio || !req.body.dataFim) {
+  if (
+    !req.body.author
+    || !req.body.titulo
+    || !req.body.content
+    || !req.body.dataInicio
+    || !req.body.dataFim
+  ) {
     return res.status(400).send({ message: 'Os campos não podem ser vazios' });
   }
 
   const desafio = await Desafio.findByIdAndUpdate(req.params.id, req.body);
-  res.status(200).send({ message: 'Desafio(a) atualizado(a) com sucesso!', desafio });
+  res
+    .status(200)
+    .send({ message: 'Desafio(a) atualizado(a) com sucesso!', desafio });
 };
 
 // Método responsável por deletar 'Desafio pelo 'Id':
 exports.delete = async (req, res) => {
   const desafio = await Desafio.findByIdAndRemove(req.params.id);
-  res.status(200).send({ message: 'Desafio(a) excluído com sucesso!', desafio });
+  res
+    .status(200)
+    .send({ message: 'Desafio(a) excluído com sucesso!', desafio });
 };

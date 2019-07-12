@@ -20,12 +20,15 @@ const localDatabase = require('./db/database');
 mongoose.Promise = global.Promise;
 
 // ==> Conexão com a Base de Dados:
-mongoose.connect(localDatabase.local.localUrl, { useNewUrlParser: true }).then(() => {
-  console.log('A Base de Dados foi conectada com sucesso!');
-}, (err) => {
-  console.log(`Erro ao conectar com a base de Dados... ${err}`);
-  process.exit();
-});
+mongoose.connect(localDatabase.local.url, { useNewUrlParser: true }).then(
+  () => {
+    console.log('A Base de Dados foi conectada com sucesso!');
+  },
+  (err) => {
+    console.log(`Erro ao conectar com a base de Dados... ${err}`);
+    process.exit();
+  },
+);
 
 // ==> Rotas
 const index = require('./routes/index');
@@ -46,6 +49,7 @@ const io = require('socket.io')(server);
 app.use((req, res, next) => {
   req.io = io;
   return next();
-}); */
+});
+*/
 
 module.exports = app;

@@ -5,7 +5,7 @@
  * Author: Glaucia Lemos
  */
 
-const Submissao = require('../models/submissao.model');
+const Submissao = require('../Models/submissao.model');
 
 // Async & Await:
 
@@ -36,11 +36,15 @@ exports.update = async (req, res) => {
   }
 
   const submissao = await Submissao.findByIdAndUpdate(req.params.id, req.body);
-  res.status(200).send({ message: 'Submissao atualizada com sucesso!', submissao });
+  res
+    .status(200)
+    .send({ message: 'Submissao atualizada com sucesso!', submissao });
 };
 
 // Método responsável por deletar 'Submissao pelo 'Id':
 exports.delete = async (req, res) => {
   const submissao = await Submissao.findByIdAndRemove(req.params.id);
-  res.status(200).send({ message: 'Submissao excluído com sucesso!', submissao });
+  res
+    .status(200)
+    .send({ message: 'Submissao excluído com sucesso!', submissao });
 };
