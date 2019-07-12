@@ -5,7 +5,7 @@
  * Author: Glaucia Lemos
  */
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
@@ -22,22 +22,22 @@ const submissaoSchema = new Schema(
   {
     usuario: {
       type: String,
-      required: true
+      required: true,
     },
     link: {
       type: String,
-      required: true
+      required: true,
     },
     votes_count: {
       type: Number,
-      default: 0
+      default: 0,
     },
-    votes: [{ type: String }]
+    votes: [{ type: String }],
   },
   {
     timestamps: true,
-    collection: "submissao"
-  }
+    collection: 'submissao',
+  },
 );
 
-module.exports = mongoose.model("Submissao", submissaoSchema);
+module.exports = mongoose.model('Submissao', submissaoSchema);
