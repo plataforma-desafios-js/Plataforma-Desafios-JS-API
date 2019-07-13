@@ -20,15 +20,20 @@ const localDatabase = require('./db/database');
 mongoose.Promise = global.Promise;
 
 // ==> Conexão com a Base de Dados:
-mongoose.connect(localDatabase.local.url, { useNewUrlParser: true }).then(
-  () => {
-    console.log('A Base de Dados foi conectada com sucesso!');
-  },
-  (err) => {
-    console.log(`Erro ao conectar com a base de Dados... ${err}`);
-    process.exit();
-  },
-);
+mongoose
+  .connect(localDatabase.local.url, {
+    useNewUrlParser: true,
+    useFindAndModify: false, // Precisa estar false, documentação diz estar Deprecated
+  })
+  .then(
+    () => {
+      console.log('A Base de Dados foi conectada com sucesso!');
+    },
+    (err) => {
+      console.log(`Erro ao conectar com a base de Dados... ${err}`);
+      process.exit();
+    },
+  );
 
 // ==> Rotas
 const index = require('./routes/index');

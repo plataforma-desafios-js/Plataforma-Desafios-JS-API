@@ -30,10 +30,15 @@ const usuarioSchema = new Schema(
     displayName: {
       type: String,
       required: true,
+      minlength: 3,
+      maxlength: 60,
     },
     email: {
       type: String,
+      required: true,
       unique: true,
+      minlength: 3,
+      maxlength: 254,
     },
     senha: {
       type: String,
