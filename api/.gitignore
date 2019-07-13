@@ -9,8 +9,6 @@ npm-debug.log
 .AppleDouble
 .LSOverride
 
-# DB Connection String
-config/
 
 package-lock.json
 yarn.lock
