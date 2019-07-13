@@ -12,3 +12,6 @@ npm-debug.log
 # Lockfiles
 package-lock.json
 yarn.lock
+
+# Env
+.env
