@@ -1,11 +1,11 @@
 ﻿# Plataforma-Desafios-JS
 
 ### Telas:
-- Login (Github Auth)
+- Login 
 - Cadastro
 - Home ( Mostra o Desafio Semanal )
 - Desafio Semanal ( Infos sobre o desafio e o botão de participar )
-- Perfil ( Infos do perfil )
+- Perfil
 
 ### TODO (O que fazer):
 
