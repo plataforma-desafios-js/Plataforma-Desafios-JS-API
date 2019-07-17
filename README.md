@@ -1,21 +1,24 @@
 ﻿# Plataforma-Desafios-JS
 
-### Telas:
-- Login 
-- Cadastro
-- Home ( Mostra o Desafio Semanal )
-- Desafio Semanal ( Infos sobre o desafio e o botão de participar )
-- Perfil
+### Requerimentos
 
-### TODO (O que fazer):
+- NodeJS
+- MongoDB (Máquina local ou Cluster)
 
-- Plataforma com login do Github(Loga com o github) você cria o repositório do projeto lá na plataforma mas o upload dos arquivos pelo git mesmo.
+### Configurando Projeto
 
-- Usar modelo MERN (MongoDB, Express, React + React Native { Só pra criar os repositórios e Verificar a pontuação } ).
+- Clone o Repositório
+- Dentro da pasta do repositório clonado, execute o comando `cd api`
+- Execute o comando `npm install` (pode utilizar o Yarn se preferir)
+- Crie um arquivo chamado `.env` (EXATAMENTE ASSIM) na raiz da pasta api
+- Copie o conteúdo do arquivo `.env.example` e Cole no arquivo que você criou
+- Inicie o MongoDB
+- Execute o comando `npm run dev`
+- Pronto, a API já está pronta para testes
 
 ### REQUISITOS FUNCIONAIS
-- O usuário deve poder fazer login pelo Github
-- O usuário deve poder upar os arquivos de seu projeto para a plataforma
+
+- O usuário deve poder fazer login no sistema
 - O usuário deve poder ver o desafio da semana atual e das semanas anteriores
 - O usuário deve poder ver as entregas de outros usuários
 - O usuário deve poder votar nas entregas de outros usuários

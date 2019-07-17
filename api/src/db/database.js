@@ -8,9 +8,9 @@ require('dotenv/config');
 
 module.exports = {
   local: {
-    url: process.env.LOCAL_CONNECTION_STRING,
+    url: 'mongodb://localhost:27017/api-crud',
   },
   production: {
-    url: process.env.PRODUCTION_CONNECTION_STRING,
+    url: process.env.CONNECTION_STRING,
   },
 };

@@ -14,6 +14,9 @@ const submissaoController = require('../Controllers/submissao.controller');
 const voteController = require('../Controllers/vote.controller');
 const sessionController = require('../Controllers/session.controller');
 
+// Middlewares
+const auth = require('../middlewares/auth'); // JSONWEBTOKEN session
+
 // ==> Rota Default da api: localhost:9000/api
 router.get('/api', (req, res) => {
   res.status(200).send({
@@ -30,6 +33,10 @@ router.post('/api/session', sessionController.create);
 
 // ==> Rota responsável por criar um novo 'Usuario': (POST): localhost:9000/api/usuarios
 router.post('/api/usuarios', usuarioController.create);
+
+// As próximas rotas precisam de Autorização
+// Precisa criar uma sessão (fazer login) na rota /Session
+router.use(auth.auth);
 
 // ==> Rota responsável por selecionar todos os 'Usuario': (GET): localhost:9000/api/usuarios/
 router.get('/api/usuarios', usuarioController.findAll);
