@@ -24,6 +24,7 @@ mongoose
   .connect(localDatabase.local.url, {
     useNewUrlParser: true,
     useFindAndModify: false, // Precisa estar false, documentação diz estar Deprecated
+    useCreateIndex: true
   })
   .then(
     () => {
