@@ -7,15 +7,16 @@
  */
 
 // const router = require('express-promise-router')();
+
 const router = require('express-promise-router')();
-const usuarioController = require('../Controllers/usuario.controller');
-const desafioController = require('../Controllers/desafio.controller');
-const submissaoController = require('../Controllers/submissao.controller');
-const voteController = require('../Controllers/vote.controller');
-const sessionController = require('../Controllers/session.controller');
+const usuarioController = require('./app/controllers/usuario.controller');
+const desafioController = require('./app/controllers/desafio.controller');
+const submissaoController = require('./app/controllers/submissao.controller');
+const voteController = require('./app/controllers/vote.controller');
+const sessionController = require('./app/controllers/session.controller');
 
 // Middlewares
-const auth = require('../middlewares/auth'); // JSONWEBTOKEN session
+const auth = require('./app/middlewares/auth'); // JSONWEBTOKEN session
 
 // ==> Rota Default da api: localhost:9000/api
 router.get('/api', (req, res) => {
@@ -53,7 +54,7 @@ router.delete('/api/usuarios/:id', usuarioController.delete);
 // === Rotas API: Desafio ===
 
 // ==> Rota responsável por criar um novo 'Desafio': (POST): localhost:9000/api/desafios
-router.post('/desafios', desafioController.create);
+router.post('/api/desafios', desafioController.create);
 
 // ==> Rota responsável por selecionar todos os 'Desafio': (GET): localhost:9000/api/desafios/
 router.get('/api/desafios', desafioController.findAll);

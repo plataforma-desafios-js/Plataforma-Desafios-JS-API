@@ -15,7 +15,7 @@ const cors = require('cors');
 const app = express();
 
 // Importando o arquivo: 'database.js'
-const localDatabase = require('./db/database');
+const localDatabase = require('./database');
 
 mongoose.Promise = global.Promise;
 
@@ -24,7 +24,7 @@ mongoose
   .connect(localDatabase.local.url, {
     useNewUrlParser: true,
     useFindAndModify: false, // Precisa estar false, documentação diz estar Deprecated
-    useCreateIndex: true
+    useCreateIndex: true,
   })
   .then(
     () => {
@@ -37,7 +37,7 @@ mongoose
   );
 
 // ==> Rotas
-const index = require('./routes/index');
+const index = require('./routes');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

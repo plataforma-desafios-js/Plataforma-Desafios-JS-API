@@ -5,7 +5,7 @@
  * Author: Glaucia Lemos
  */
 
-const Vote = require('../Models/vote.model');
+const Vote = require('../models/vote.model');
 
 // Async & Await:
 

@@ -4,11 +4,10 @@
   "description": "Aplicação RESTFul API com padrão Onion Architecture - seguindo conceitos SOLID.",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "nodemon .",
     "lint": "eslint --ext .js,.html -f ./node_modules/eslint-friendly-formatter . --fix",
     "prepush": "npm run lint",
-    "start": "node server.js",
-    "queue": "nodemon src/queue.js"
+    "start": "babel-node ."
   },
   "keywords": [
     "nodejs",
@@ -26,6 +25,8 @@
   },
   "homepage": "https://github.com/b3coded/Plataforma-Desafios-JS-API/blob/master/README.md",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.3",

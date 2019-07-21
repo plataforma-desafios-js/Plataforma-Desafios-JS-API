@@ -5,7 +5,7 @@
  * Author: Glaucia Lemos
  */
 
-const Desafio = require('../Models/desafio.model');
+const Desafio = require('../models/desafio.model');
 
 // Async & Await:
 

@@ -6,21 +6,34 @@
  */
 
 const Bcrypt = require('bcrypt');
-const Usuario = require('../Models/usuario.model');
+const Usuario = require('../models/usuario.model');
 
 // Async & Await:
 
 // ==> Método responsável por criar um novo Usuario:
 exports.create = async (req, res) => {
+  const { displayName, email, senha } = req.body;
   // Validação de campos vazios:
-  if (!req.body.displayName || !req.body.email || !req.body.senha) {
+  if (!displayName || !email || !senha) {
     return res
       .status(400)
       .send({ success: false, message: 'Os campos não podem ser vazios' });
   }
 
+  // Apagando Atributo de Admin do body
+  delete req.body.admin;
+
+  // Validando email
+  const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+  if (!re.test(email)) {
+    return res
+      .status(400)
+      .send({ success: false, error: 'Email mal formatado' });
+  }
+
   // Encriptando senha
-  req.body.senha = Bcrypt.hashSync(req.body.senha, 10);
+  req.body.senha = Bcrypt.hashSync(senha, 10);
 
   const novoUsuario = new Usuario(req.body);
 
@@ -38,9 +51,10 @@ exports.create = async (req, res) => {
     }
 
     // Se não houver problemas
-    return res
-      .status(200)
-      .send({ message: 'Usuário(a) criado(a) com sucesso!', usuario });
+    return res.status(200).send({
+      succes: true,
+      usuario,
+    });
   });
 };
 
@@ -53,6 +67,7 @@ exports.findAll = async (req, res) => {
 // ==> Método responsável por selecionar 'Usuário' pelo 'Id':
 exports.findById = async (req, res) => {
   const { id } = req.params;
+
   // Validando o id
   if (!id.match(/^[a-fA-F0-9]{24}$/)) {
     return res.status(400).send({ success: false, error: 'ID mal formatado' });
@@ -65,7 +80,7 @@ exports.findById = async (req, res) => {
     if (!usuario) {
       return res
         .status(404)
-        .send({ success: false, message: 'Usuário não cadastrado' });
+        .send({ success: false, message: 'Usuário não encontrado' });
     }
 
     return res.status(200).send({ success: true, usuario });
@@ -75,42 +90,64 @@ exports.findById = async (req, res) => {
 // ==> Método responsável por atualizar 'Usuário' pelo 'Id':
 exports.update = async (req, res) => {
   const { id } = req.params;
+
   // Validando o id
   if (!id.match(/^[a-fA-F0-9]{24}$/)) {
     return res.status(400).send({ success: false, error: 'ID mal formatado' });
   }
 
+  const {
+    displayName, senha, email, vitorias,
+  } = req.body;
+
   // Validação de campos vazios:
-  if (!req.body.displayName || !req.body.senha || !req.body.vitorias) {
+  if (!displayName || !senha || !vitorias) {
     return res
       .status(400)
       .send({ success: false, message: 'Os campos não podem ser vazios' });
   }
 
+  // Validando email
+  const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+  if (!re.test(email)) {
+    return res
+      .status(400)
+      .send({ success: false, error: 'Email mal formatado' });
+  }
+
+  // Apagando Atributo de Admin do body
+  delete req.body.admin;
+
   // Encriptando senha
   req.body.senha = Bcrypt.hashSync(req.body.senha, 10);
 
-  await Usuario.findByIdAndUpdate(id, req.body, (err, usuario) => {
-    if (err) {
-      return res.status(400).send({ success: false, message: err.message });
-    }
-    if (!usuario) {
-      return res
-        .status(404)
-        .send({ success: false, message: 'Usuário não cadastrado' });
-    }
+  await Usuario.findOneAndUpdate(
+    { _id: id, email }, // Usuário só pode mudar se seu email e id estiverem certos
+    req.body,
+    { new: true },
+    (err, usuario) => {
+      if (err) {
+        return res.status(400).send({ success: false, message: err.message });
+      }
+      if (!usuario) {
+        return res
+          .status(404)
+          .send({ success: false, message: 'Usuário não encontrado' });
+      }
 
-    return res.status(200).send({
-      success: true,
-      message: 'Usuário(a) atualizado(a) com sucesso!',
-      usuario,
-    });
-  });
+      return res.status(200).send({
+        success: true,
+        usuario,
+      });
+    },
+  );
 };
 
 // Método responsável por deletar 'Usuário pelo 'Id':
 exports.delete = async (req, res) => {
   const { id } = req.params;
+
   // Validando o id
   if (!id.match(/^[a-fA-F0-9]{24}$/)) {
     return res.status(400).send({ success: false, error: 'ID mal formatado' });
@@ -123,7 +160,7 @@ exports.delete = async (req, res) => {
     if (!usuario) {
       return res
         .status(404)
-        .send({ success: false, message: 'Usuário não cadastrado' });
+        .send({ success: false, message: 'Usuário não encontrado' });
     }
 
     return res.status(200).send({

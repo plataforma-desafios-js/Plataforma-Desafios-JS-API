@@ -4,10 +4,12 @@
  * Data: 13/07/2019
  * Author: João Alves
  */
+
 const JWT = require('jsonwebtoken');
 const { promisify } = require('util');
 
-const AuthConfig = require('../config/auth');
+const Usuario = require('../models/usuario.model');
+const AuthConfig = require('../../config/auth');
 
 // Async & Await:
 
@@ -31,9 +33,22 @@ exports.auth = async (req, res, next) => {
   try {
     // Permite o acesso se o token for válido
     const decoded = await promisify(JWT.verify)(token, AuthConfig.secret);
-    req.token = decoded.id;
 
-    return next();
+    // Verifica se o Token pertence a algum usuário
+    await Usuario.findById(decoded._id, (err, usuario) => {
+      if (err) {
+        return res.status(400).send({ success: false, message: err.message });
+      }
+      if (!usuario) {
+        return res
+          .status(404)
+          .send({ success: false, message: 'Token não pertence a um Usuário' });
+      }
+
+      // Se pertencer o usuário tem acesso a próxima rota
+      req.token = decoded._id;
+      return next();
+    });
   } catch (err) {
     // Nega o acesso se o Token for inválido
     return res.status(401).json({ success: false, message: 'Token inválido' });

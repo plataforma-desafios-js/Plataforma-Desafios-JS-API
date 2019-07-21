@@ -8,8 +8,8 @@
 const JWT = require('jsonwebtoken');
 const Bcrypt = require('bcrypt');
 
-const Usuario = require('../Models/usuario.model');
-const AuthConfig = require('../config/auth');
+const Usuario = require('../models/usuario.model');
+const AuthConfig = require('../../config/auth');
 
 // Async & Await:
 

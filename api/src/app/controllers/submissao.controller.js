@@ -5,7 +5,7 @@
  * Author: Glaucia Lemos
  */
 
-const Submissao = require('../Models/submissao.model');
+const Submissao = require('../models/submissao.model');
 
 // Async & Await:
 

@@ -14,25 +14,24 @@ const Schema = mongoose.Schema;
  *  id: (number - guid gerado pelo MongoDb)
  *  usuario: String
  *  link: String
- *  votes_count: String
- *  votes: Array<String>
  */
 
 const submissaoSchema = new Schema(
   {
+    desafio: {
+      type: Schema.Types.ObjectId,
+      ref: 'Desafio',
+      required: true,
+    },
     usuario: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: 'Usuario',
       required: true,
     },
     link: {
       type: String,
       required: true,
     },
-    votes_count: {
-      type: Number,
-      default: 0,
-    },
-    votes: [{ type: String }],
   },
   {
     timestamps: true,
